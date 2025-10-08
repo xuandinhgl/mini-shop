@@ -23,15 +23,17 @@ class ShoppingCartScreen extends StatelessWidget {
             child: Column(
               children: [
                 Expanded(
-                  child: ListView.builder(
-                    itemCount: cart.count,
-                    itemBuilder: (context, index) {
-                      return _ItemRow(cartItem: cart.items[index],);
-                    },
-                  ),
+                  child: cart.count > 0
+                      ? ListView.builder(
+                          itemCount: cart.count,
+                          itemBuilder: (context, index) {
+                            return _ItemRow(cartItem: cart.items[index]);
+                          },
+                        )
+                      : Text("The shopping cart is empty"),
                 ),
                 const SizedBox(height: 10),
-                _SubTotal(),
+                cart.count > 0 ? _SubTotal() : Text(""),
               ],
             ),
           ),
@@ -104,9 +106,9 @@ class _SubTotal extends StatelessWidget {
   }
 }
 
-class _ItemRow extends StatelessWidget{
+class _ItemRow extends StatelessWidget {
   final CartItem cartItem;
-  const _ItemRow({ required this.cartItem});
+  const _ItemRow({required this.cartItem});
 
   @override
   Widget build(BuildContext context) {
@@ -115,19 +117,12 @@ class _ItemRow extends StatelessWidget{
       padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
         border: Border(
-          bottom: BorderSide(
-            color: Color(0xFFEBEBFB),
-            width: 0.5,
-          ),
+          bottom: BorderSide(color: Color(0xFFEBEBFB), width: 0.5),
         ),
       ),
       child: Row(
         children: [
-          Image.network(
-            cartItem.product.thumbnail,
-            width: 40,
-            height: 40,
-          ),
+          Image.network(cartItem.product.thumbnail, width: 40, height: 40),
           const SizedBox(width: 10),
           SizedBox(
             width: 150,
@@ -138,9 +133,7 @@ class _ItemRow extends StatelessWidget{
                   cartItem.product.title,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 Text("\$${cartItem.totalPrice}"),
               ],
@@ -152,35 +145,23 @@ class _ItemRow extends StatelessWidget{
             children: [
               IconButton(
                 onPressed: () {
-                  cart.decreaseQuantity(
-                    cartItem.product,
-                  );
+                  cart.decreaseQuantity(cartItem.product);
                 },
                 icon: Icon(Icons.remove),
                 style: ButtonStyle(
-                  backgroundColor: WidgetStateProperty.all(
-                    Styles.colorBlack10,
-                  ),
-                  foregroundColor: WidgetStateProperty.all(
-                    Styles.colorBlack90,
-                  ),
+                  backgroundColor: WidgetStateProperty.all(Styles.colorBlack10),
+                  foregroundColor: WidgetStateProperty.all(Styles.colorBlack90),
                 ),
               ),
               Text(cartItem.quantity.toString()),
               IconButton(
                 onPressed: () {
-                  cart.increaseQuantity(
-                    cartItem.product,
-                  );
+                  cart.increaseQuantity(cartItem.product);
                 },
                 icon: Icon(Icons.add),
                 style: ButtonStyle(
-                  backgroundColor: WidgetStateProperty.all(
-                    Styles.colorBlack10,
-                  ),
-                  foregroundColor: WidgetStateProperty.all(
-                    Styles.colorBlack90,
-                  ),
+                  backgroundColor: WidgetStateProperty.all(Styles.colorBlack10),
+                  foregroundColor: WidgetStateProperty.all(Styles.colorBlack90),
                 ),
               ),
             ],
@@ -189,5 +170,4 @@ class _ItemRow extends StatelessWidget{
       ),
     );
   }
-
 }

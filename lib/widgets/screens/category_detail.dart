@@ -11,9 +11,7 @@ class CategoryDetailScreen extends StatelessWidget {
 
   CategoryDetailScreen({super.key, required this.category}){
      WidgetsBinding.instance.addPostFrameCallback((_){
-       print("addPostFrameCallback");
        final context = _key.currentContext;
-       print(context);
        if (context == null) {
          return;
        }

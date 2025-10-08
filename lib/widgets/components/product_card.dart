@@ -88,6 +88,7 @@ class ProductCard extends StatelessWidget {
                       IconButton(
                         onPressed: () {
                           cart.addToCart(product);
+
                         },
                         icon: Icon(Icons.add),
                         style: ButtonStyle(

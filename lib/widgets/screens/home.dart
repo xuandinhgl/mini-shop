@@ -21,9 +21,7 @@ class HomeScreen extends StatelessWidget {
             title: Text("Mini Shop"),
             backgroundColor: Styles.colorLightBlue,
             foregroundColor: Styles.colorBlack10,
-            actions: [
-              HeaderCart(),
-            ],
+            actions: [HeaderCart()],
           ),
           body: IndexedStack(index: nav.currentIndex, children: pages),
           bottomNavigationBar: BottomNavigationBar(

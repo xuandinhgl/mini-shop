@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mini_shop/resources/models/cart_item.dart';
 import 'package:mini_shop/resources/models/product.dart';
 
@@ -19,6 +20,10 @@ class ShoppingCartProvider extends ChangeNotifier {
     } else {
       _items.add(CartItem(product: product));
     }
+    Fluttertoast.showToast(
+      msg: "Added product to cart",
+      toastLength: Toast.LENGTH_SHORT,
+    );
     notifyListeners();
   }
 
@@ -37,6 +42,10 @@ class ShoppingCartProvider extends ChangeNotifier {
         _items[index].quantity -= 1;
       } else {
         _items.removeAt(index);
+        Fluttertoast.showToast(
+          msg: "Removed product from cart",
+          toastLength: Toast.LENGTH_SHORT,
+        );
       }
     } else {
       _items.add(CartItem(product: product));

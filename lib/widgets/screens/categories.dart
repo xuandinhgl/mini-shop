@@ -1,26 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:mini_shop/resources/constants.dart';
 import 'package:mini_shop/resources/view_models/category_provider.dart';
-import 'package:mini_shop/widgets/common/styles.dart';
 import 'package:mini_shop/widgets/components/category_card.dart';
 import 'package:provider/provider.dart';
 
 class CategoriesScreen extends StatelessWidget {
-  const CategoriesScreen({super.key});
+  CategoriesScreen({super.key}) {
+    WidgetsBinding.instance.addPersistentFrameCallback((_) {
+      final context = _key.currentContext;
+      if (context == null) {
+        return;
+      }
+      final categoryProvider = Provider.of<CategoryProvider>(context, listen: false);
+      if (!categoryProvider.isLoading && categoryProvider.categories.isEmpty) {
+        categoryProvider.getCategories();
+      }
+    });
+  }
+
+  final _key = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
     final categoryProvider = Provider.of<CategoryProvider>(context);
-
-    if(!categoryProvider.isLoading && categoryProvider.categories.isEmpty) {
-      Future.microtask(() => categoryProvider.getCategories());
-    }
 
     if (categoryProvider.isLoading) {
       return const Center(child: CircularProgressIndicator());
     }
 
     return Column(
+      key: _key,
       children: [
         Expanded(
           child: Padding(
