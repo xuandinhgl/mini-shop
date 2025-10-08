@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mini_shop/resources/models/category.dart';
 import 'package:mini_shop/widgets/common/routers.dart';
 import 'package:mini_shop/widgets/common/styles.dart';
+import 'package:mini_shop/widgets/screens/category_detail.dart';
 
 class CategoryCard extends StatelessWidget {
   const CategoryCard({super.key, required this.category});
@@ -11,7 +12,12 @@ class CategoryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).pushNamed(Routers.categoryDetail);
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => CategoryDetailScreen(category: category),
+          ),
+        );
       },
       child: Container(
         decoration: BoxDecoration(
@@ -20,17 +26,15 @@ class CategoryCard extends StatelessWidget {
         ),
         child: Column(
           children: [
-            Image.asset(category.image),
+            Image.network(
+              category.image,
+              errorBuilder: (context, error, stackTrace) =>
+                  const Icon(Icons.broken_image, size: 50),
+            ),
             const SizedBox(height: 5),
-             Text(
+            Text(
               category.name,
               style: Styles.textH3Semibold,
-              maxLines: 1,
-              textAlign: TextAlign.left,
-            ),
-            Text(
-              category.subtitle ?? "",
-              style: Styles.textBody1Medium,
               maxLines: 1,
               textAlign: TextAlign.left,
             ),

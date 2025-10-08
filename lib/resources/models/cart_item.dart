@@ -6,5 +6,5 @@ class CartItem {
 
   CartItem({required this.product, this.quantity = 1});
 
-  double get totalPrice => product.price * quantity;
+  int get totalPrice => product.price * quantity;
 }

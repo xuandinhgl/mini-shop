@@ -15,98 +15,107 @@ class ProductDetailScreen extends StatelessWidget {
     final cart = Provider.of<ShoppingCartProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
-        title: Text("Product"),
+        title: Text("Product detail"),
         backgroundColor: Styles.colorLightBlue,
         foregroundColor: Colors.white,
         actions: [HeaderCart()],
       ),
-      body: Stack(
-        children: [
-          Container(
-            height: MediaQuery.of(context).size.height / 2,
-            color: Colors.white,
-            child: Image.asset(product.thumbnail),
-          ),
-          Padding(
-            padding: EdgeInsets.all(15),
-            child: Container(
-              padding: EdgeInsets.all(15),
-              margin: EdgeInsets.only(
-                top: MediaQuery.of(context).size.height / 2.2,
-              ),
-              decoration: BoxDecoration(
-                color: Styles.colorBlack10,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  topRight: Radius.circular(20),
-                ),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(product.title, style: Styles.textH3Bold),
-                  SizedBox(height: 10),
-                  Text(
-                    "\$${product.price}",
-                    style: TextStyle(
-                      color: Styles.colorLightBlue,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16,
-                      height: 1.5,
-                    ),
-                  ),
-                  SizedBox(height: 30),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: ElevatedButton(
-                          onPressed: () {
-                            cart.addToCart(product);
-                          },
-                          style: ElevatedButton.styleFrom(
-                            // minimumSize: const Size(double.infinity, 48),
-                            backgroundColor: Styles.colorLightBlue,
-                            foregroundColor: Colors.white,
-                            padding: EdgeInsets.only(
-                              top: 10,
-                              bottom: 10,
-                              left: 20,
-                              right: 10,
-                            ),
-                          ),
-                          child: Text("Add to card"),
-                        ),
-                      ),
-                      SizedBox(width: 10),
-                      Consumer<FavoriteProvider>(
-                        builder:
-                            (
-                              BuildContext context,
-                              FavoriteProvider favorite,
-                              Widget? child,
-                            ) {
-                              return IconButton(
-                                onPressed: () {
-                                  favorite.toggleFavorite(product.id);
-                                },
-                                icon: Icon(Icons.favorite),
-                                color: favorite.isFavorited(product.id)
-                                    ? Styles.colorDarkTYellow
-                                    : Colors.black,
-                              );
-                            },
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 30),
-                  Text("Detail", style: Styles.textBody1Semibold),
-                  SizedBox(height: 20),
-                  Text(product.detail ?? "", style: Styles.textBody1Regular),
-                ],
+      body: SingleChildScrollView(
+        child: Stack(
+          children: [
+            SizedBox(
+              height: MediaQuery.of(context).size.height / 2,
+              child: Image.network(
+                product.thumbnail,
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) =>
+                    const Icon(Icons.broken_image, size: 50),
               ),
             ),
-          ),
-        ],
+            Padding(
+              padding: EdgeInsets.all(15),
+              child: Container(
+                padding: EdgeInsets.all(15),
+                margin: EdgeInsets.only(
+                  top: MediaQuery.of(context).size.height / 2.4,
+                ),
+                decoration: BoxDecoration(
+                  color: Styles.colorBlack10,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20),
+                  ),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(product.title, style: Styles.textH3Bold),
+                    SizedBox(height: 10),
+                    Text(
+                      "\$${product.price}",
+                      style: TextStyle(
+                        color: Styles.colorLightBlue,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16,
+                        height: 1.5,
+                      ),
+                    ),
+                    SizedBox(height: 30),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: ElevatedButton(
+                            onPressed: () {
+                              cart.addToCart(product);
+                            },
+                            style: ElevatedButton.styleFrom(
+                              // minimumSize: const Size(double.infinity, 48),
+                              backgroundColor: Styles.colorLightBlue,
+                              foregroundColor: Colors.white,
+                              padding: EdgeInsets.only(
+                                top: 10,
+                                bottom: 10,
+                                left: 20,
+                                right: 10,
+                              ),
+                            ),
+                            child: Text("Add to card"),
+                          ),
+                        ),
+                        SizedBox(width: 10),
+                        Consumer<FavoriteProvider>(
+                          builder:
+                              (
+                                BuildContext context,
+                                FavoriteProvider favorite,
+                                Widget? child,
+                              ) {
+                                return IconButton(
+                                  onPressed: () {
+                                    favorite.toggleFavorite(product.id);
+                                  },
+                                  icon: Icon(Icons.favorite),
+                                  color: favorite.isFavorited(product.id)
+                                      ? Styles.colorDarkTYellow
+                                      : Colors.black,
+                                );
+                              },
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 30),
+                    Text("Detail", style: Styles.textBody1Semibold),
+                    SizedBox(height: 20),
+                    Text(
+                      product.description ?? "",
+                      style: Styles.textBody1Regular,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

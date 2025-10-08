@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:mini_shop/resources/models/product.dart';
 import 'package:mini_shop/resources/view_models/shopping_cart_provider.dart';
-import 'package:mini_shop/widgets/common/routers.dart';
 import 'package:mini_shop/widgets/common/styles.dart';
 import 'package:mini_shop/widgets/screens/product_detail.dart';
-import 'package:provider/provider.dart';
-
-import '../../resources/models/product.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard({super.key, required this.product});
@@ -24,7 +22,14 @@ class ProductCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               GestureDetector(
-                child: Image.asset(product.thumbnail),
+                child: Image.network(
+                  product.thumbnail,
+                  width: 138,
+                  height: 138,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) =>
+                      const Icon(Icons.broken_image, size: 50),
+                ),
                 onTap: () {
                   Navigator.push(
                     context,
@@ -51,7 +56,7 @@ class ProductCard extends StatelessWidget {
                 },
               ),
               Text(
-                product.category,
+                product.category.name,
                 style: Styles.textBody1Medium,
                 maxLines: 1,
               ),
@@ -76,7 +81,7 @@ class ProductCard extends StatelessWidget {
                       Text("Unit", style: Styles.textBody1Regular),
                       SizedBox(width: 5),
                       Text(
-                        product.price.toString(),
+                        "\$${product.price}",
                         style: Styles.textBody1Semibold,
                       ),
                       SizedBox(width: 5),

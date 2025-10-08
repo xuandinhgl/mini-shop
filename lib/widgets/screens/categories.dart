@@ -1,24 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:mini_shop/resources/constants.dart';
+import 'package:mini_shop/resources/view_models/category_provider.dart';
 import 'package:mini_shop/widgets/common/styles.dart';
 import 'package:mini_shop/widgets/components/category_card.dart';
+import 'package:provider/provider.dart';
 
 class CategoriesScreen extends StatelessWidget {
   const CategoriesScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final categoryProvider = Provider.of<CategoryProvider>(context);
+
+    if(!categoryProvider.isLoading && categoryProvider.categories.isEmpty) {
+      Future.microtask(() => categoryProvider.getCategories());
+    }
+
+    if (categoryProvider.isLoading) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
     return Column(
       children: [
-        Container(
-          width: MediaQuery.of(context).size.width,
-          padding: EdgeInsets.all(20),
-          color: Styles.colorLightBlue,
-          child: Text(
-            "Category name",
-            style: TextStyle(color: Colors.white, fontSize: 30),
-          ),
-        ),
         Expanded(
           child: Padding(
             padding: EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 20),
@@ -27,7 +30,7 @@ class CategoriesScreen extends StatelessWidget {
                 const SizedBox(height: 20),
                 Expanded(
                   child: GridView.builder(
-                    itemCount: Constants.categories.length,
+                    itemCount: categoryProvider.categories.length,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       mainAxisSpacing: 10,
@@ -36,7 +39,7 @@ class CategoriesScreen extends StatelessWidget {
                     ),
                     itemBuilder: (context, index) {
                       return CategoryCard(
-                        category: Constants.categories[index],
+                        category: categoryProvider.categories[index],
                       );
                     },
                   ),
