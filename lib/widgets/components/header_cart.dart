@@ -1,0 +1,43 @@
+import 'package:flutter/material.dart';
+import 'package:mini_shop/resources/view_models/shopping_cart_provider.dart';
+import 'package:mini_shop/widgets/common/routers.dart';
+import 'package:mini_shop/widgets/common/styles.dart';
+import 'package:provider/provider.dart';
+
+class HeaderCart extends StatelessWidget {
+  const HeaderCart({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<ShoppingCartProvider>(builder: (context, cart, child){
+      return Stack(
+        children: [
+          IconButton(
+            onPressed: () {
+              Navigator.of(context).pushNamed(Routers.shoppingCart);
+            },
+            icon: Icon(Icons.shopping_cart),
+          ),
+          Positioned(
+            right: 5,
+            top: 4,
+            child: Container(
+              padding: const EdgeInsets.all(4),
+              decoration: const BoxDecoration(
+                color: Colors.red,
+                shape: BoxShape.circle,
+              ),
+              child: Text(
+                cart.count.toString(),
+                style: TextStyle(
+                  color: Styles.colorBlack10,
+                  fontSize: 13,
+                ),
+              ),
+            ),
+          ),
+        ],
+      );
+    });
+  }
+}

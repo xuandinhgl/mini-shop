@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:mini_shop/resources/models/category.dart';
 import 'package:mini_shop/widgets/common/routers.dart';
 import 'package:mini_shop/widgets/common/styles.dart';
 
 class CategoryCard extends StatelessWidget {
-  const CategoryCard({super.key});
+  const CategoryCard({super.key, required this.category});
+  final Category category;
 
   @override
   Widget build(BuildContext context) {
@@ -18,16 +20,16 @@ class CategoryCard extends StatelessWidget {
         ),
         child: Column(
           children: [
-            Image.asset("images/image_placeholder.png"),
+            Image.asset(category.image),
             const SizedBox(height: 5),
-            const Text(
-              "Category title",
+             Text(
+              category.name,
               style: Styles.textH3Semibold,
               maxLines: 1,
               textAlign: TextAlign.left,
             ),
-            const Text(
-              "Category subtitle",
+            Text(
+              category.subtitle ?? "",
               style: Styles.textBody1Medium,
               maxLines: 1,
               textAlign: TextAlign.left,

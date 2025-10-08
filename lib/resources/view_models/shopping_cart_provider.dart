@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mini_shop/resources/models/Cart.dart';
+import 'package:mini_shop/resources/models/cart_item.dart';
 import 'package:mini_shop/resources/models/product.dart';
 
 class ShoppingCartProvider extends ChangeNotifier {

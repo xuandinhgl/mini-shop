@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mini_shop/resources/constants.dart';
 import 'package:mini_shop/widgets/common/styles.dart';
 import 'package:mini_shop/widgets/components/category_card.dart';
 
@@ -26,7 +27,7 @@ class CategoriesScreen extends StatelessWidget {
                 const SizedBox(height: 20),
                 Expanded(
                   child: GridView.builder(
-                    itemCount: 8,
+                    itemCount: Constants.categories.length,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       mainAxisSpacing: 10,
@@ -34,7 +35,9 @@ class CategoriesScreen extends StatelessWidget {
                       childAspectRatio: 0.65,
                     ),
                     itemBuilder: (context, index) {
-                      return CategoryCard();
+                      return CategoryCard(
+                        category: Constants.categories[index],
+                      );
                     },
                   ),
                 ),

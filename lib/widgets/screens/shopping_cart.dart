@@ -38,7 +38,7 @@ class ShoppingCartScreen extends StatelessWidget {
                         child: Row(
                           children: [
                             Image.asset(
-                              cart.items[index].product.image,
+                              cart.items[index].product.thumbnail,
                               width: 31,
                               height: 31,
                             ),
@@ -148,7 +148,7 @@ class ShoppingCartScreen extends StatelessWidget {
                           ),
                           minimumSize: const Size(double.infinity, 48),
                         ),
-                        child: Text("Proceed  To checkout"),
+                        child: Text("Proceed To checkout"),
                       ),
                     ],
                   ),

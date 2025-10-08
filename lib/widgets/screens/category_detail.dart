@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mini_shop/resources/constants.dart';
 import 'package:mini_shop/widgets/common/styles.dart';
+import 'package:mini_shop/widgets/components/header_cart.dart';
 import 'package:mini_shop/widgets/components/product_card.dart';
 
 class CategoryDetailScreen extends StatelessWidget {
@@ -13,6 +14,9 @@ class CategoryDetailScreen extends StatelessWidget {
         title: Text("Category name"),
         backgroundColor: Styles.colorLightBlue,
         foregroundColor: Colors.white,
+        actions: [
+          HeaderCart()
+        ],
       ),
       body: Container(
         padding: EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 20),
