@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mini_shop/resources/view_models/favorite_provider.dart';
 import 'package:mini_shop/resources/view_models/product_provider.dart';
 import 'package:mini_shop/widgets/common/styles.dart';
-import 'package:mini_shop/widgets/components/product_card.dart';
+import 'package:mini_shop/widgets/components/product_row.dart';
 import 'package:provider/provider.dart';
 
 class FavoriteScreen extends StatelessWidget {
@@ -31,16 +31,10 @@ class FavoriteScreen extends StatelessWidget {
           ),
           SizedBox(height: 20),
           Expanded(
-            child: GridView.builder(
+            child: ListView.builder(
               itemCount: favoriteProducts.length,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                mainAxisSpacing: 10,
-                crossAxisSpacing: 10,
-                childAspectRatio: 0.65,
-              ),
               itemBuilder: (context, index) {
-                return ProductCard(product: favoriteProducts[index]);
+                return ProductRow(product: favoriteProducts[index]);
               },
             ),
           ),

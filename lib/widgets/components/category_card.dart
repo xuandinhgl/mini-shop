@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mini_shop/resources/models/category.dart';
-import 'package:mini_shop/widgets/common/routers.dart';
 import 'package:mini_shop/widgets/common/styles.dart';
 import 'package:mini_shop/widgets/screens/category_detail.dart';
 
@@ -28,6 +27,9 @@ class CategoryCard extends StatelessWidget {
           children: [
             Image.network(
               category.image,
+              width: 154,
+              height: 154,
+              fit: BoxFit.cover,
               errorBuilder: (context, error, stackTrace) =>
                   const Icon(Icons.broken_image, size: 50),
             ),

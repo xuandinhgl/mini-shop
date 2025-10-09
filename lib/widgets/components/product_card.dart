@@ -77,9 +77,8 @@ class ProductCard extends StatelessWidget {
                     ],
                   ),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("Unit", style: Styles.textBody1Regular),
-                      SizedBox(width: 5),
                       Text(
                         "\$${product.price}",
                         style: Styles.textBody1Semibold,
@@ -88,9 +87,9 @@ class ProductCard extends StatelessWidget {
                       IconButton(
                         onPressed: () {
                           cart.addToCart(product);
-
                         },
                         icon: Icon(Icons.add),
+                        iconSize: 30,
                         style: ButtonStyle(
                           backgroundColor: WidgetStateProperty.all(
                             Styles.colorLightBlue,
