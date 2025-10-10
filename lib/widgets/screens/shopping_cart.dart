@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_shop/resources/models/cart_item.dart';
 import 'package:mini_shop/resources/models/product.dart';
@@ -122,7 +123,16 @@ class _ItemRow extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Image.network(cartItem.product.thumbnail, width: 40, height: 40),
+          CachedNetworkImage(
+            imageUrl: cartItem.product.thumbnail,
+            width: 40,
+            height: 40,
+            fit: BoxFit.cover,
+            placeholder: (context, url) =>
+                const Center(child: CircularProgressIndicator()),
+            errorWidget: (context, url, error) =>
+                const Icon(Icons.broken_image, size: 50),
+          ),
           const SizedBox(width: 10),
           SizedBox(
             width: 150,

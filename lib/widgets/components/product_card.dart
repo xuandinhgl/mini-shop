@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:mini_shop/resources/models/product.dart';
@@ -22,12 +23,14 @@ class ProductCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               GestureDetector(
-                child: Image.network(
-                  product.thumbnail,
+                child: CachedNetworkImage(
+                  imageUrl: product.thumbnail,
                   width: 138,
                   height: 138,
                   fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) =>
+                  placeholder: (context, url) =>
+                      const Center(child: CircularProgressIndicator()),
+                  errorWidget: (context, url, error) =>
                       const Icon(Icons.broken_image, size: 50),
                 ),
                 onTap: () {

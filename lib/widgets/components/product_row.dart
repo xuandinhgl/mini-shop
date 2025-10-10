@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_shop/resources/models/product.dart';
 import 'package:mini_shop/resources/view_models/favorite_provider.dart';
@@ -37,18 +38,18 @@ class ProductRow extends StatelessWidget {
         },
         child: Container(
           decoration: BoxDecoration(
-            border: Border(bottom: BorderSide(
-              color: Styles.colorBlack20
-            ))
+            border: Border(bottom: BorderSide(color: Styles.colorBlack20)),
           ),
           padding: EdgeInsets.all(10),
           child: Row(
             children: [
-              Image.network(
-                product.thumbnail,
+              CachedNetworkImage(
+                imageUrl: product.thumbnail,
                 width: 20,
                 height: 30,
-                errorBuilder: (context, error, stackTrace) =>
+                placeholder: (context, url) =>
+                    const Center(child: CircularProgressIndicator()),
+                errorWidget: (context, url, error) =>
                     const Icon(Icons.broken_image, size: 50),
               ),
               SizedBox(width: 10),

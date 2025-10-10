@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_shop/resources/models/category.dart';
 import 'package:mini_shop/widgets/common/styles.dart';
@@ -25,12 +26,14 @@ class CategoryCard extends StatelessWidget {
         ),
         child: Column(
           children: [
-            Image.network(
-              category.image,
+            CachedNetworkImage(
+              imageUrl: category.image,
               width: 154,
               height: 154,
               fit: BoxFit.cover,
-              errorBuilder: (context, error, stackTrace) =>
+              placeholder: (context, url) =>
+                  const Center(child: CircularProgressIndicator()),
+              errorWidget: (context, url, error) =>
                   const Icon(Icons.broken_image, size: 50),
             ),
             const SizedBox(height: 5),
