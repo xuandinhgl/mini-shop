@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:mini_shop/l10n/app_localizations.dart';
 import 'package:mini_shop/resources/models/cart_item.dart';
 import 'package:mini_shop/resources/models/product.dart';
 
@@ -13,7 +14,7 @@ class ShoppingCartProvider extends ChangeNotifier {
   double get totalAmound =>
       _items.fold(0, (sum, item) => sum + item.totalPrice);
 
-  void addToCart(Product product) {
+  void addToCart(BuildContext context,Product product) {
     final index = _items.indexWhere((item) => item.product.id == product.id);
     if (index >= 0) {
       _items[index].quantity += 1;
@@ -21,7 +22,7 @@ class ShoppingCartProvider extends ChangeNotifier {
       _items.add(CartItem(product: product));
     }
     Fluttertoast.showToast(
-      msg: "Added product to cart",
+      msg: AppLocalizations.of(context)!.productAddedToCart,
       toastLength: Toast.LENGTH_SHORT,
     );
     notifyListeners();
@@ -35,7 +36,7 @@ class ShoppingCartProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void decreaseQuantity(Product product) {
+  void decreaseQuantity(BuildContext context,Product product) {
     final index = _items.indexWhere((item) => item.product.id == product.id);
     if (index >= 0) {
       if (_items[index].quantity > 1) {
@@ -43,7 +44,7 @@ class ShoppingCartProvider extends ChangeNotifier {
       } else {
         _items.removeAt(index);
         Fluttertoast.showToast(
-          msg: "Removed product from cart",
+          msg: AppLocalizations.of(context)!.productRemovedFromCart,
           toastLength: Toast.LENGTH_SHORT,
         );
       }

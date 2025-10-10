@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:mini_shop/l10n/app_localizations.dart';
 import 'package:mini_shop/resources/models/product.dart';
 import 'package:mini_shop/resources/view_models/favorite_provider.dart';
 import 'package:mini_shop/resources/view_models/shopping_cart_provider.dart';
@@ -14,6 +15,7 @@ class ProductDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cart = Provider.of<ShoppingCartProvider>(context, listen: false);
+    final lang = AppLocalizations.of(context);
     return Scaffold(
       appBar: AppBar(
         title: Text("Product detail"),
@@ -69,7 +71,7 @@ class ProductDetailScreen extends StatelessWidget {
                         Expanded(
                           child: ElevatedButton(
                             onPressed: () {
-                              cart.addToCart(product);
+                              cart.addToCart(context, product);
                             },
                             style: ElevatedButton.styleFrom(
                               // minimumSize: const Size(double.infinity, 48),
@@ -82,7 +84,7 @@ class ProductDetailScreen extends StatelessWidget {
                                 right: 10,
                               ),
                             ),
-                            child: Text("Add to card"),
+                            child: Text(lang!.addToCart),
                           ),
                         ),
                         SizedBox(width: 10),
@@ -95,7 +97,10 @@ class ProductDetailScreen extends StatelessWidget {
                               ) {
                                 return IconButton(
                                   onPressed: () {
-                                    favorite.toggleFavorite(product.id);
+                                    favorite.toggleFavorite(
+                                      context,
+                                      product.id,
+                                    );
                                   },
                                   icon: Icon(Icons.favorite),
                                   color: favorite.isFavorited(product.id)
@@ -107,7 +112,7 @@ class ProductDetailScreen extends StatelessWidget {
                       ],
                     ),
                     SizedBox(height: 30),
-                    Text("Detail", style: Styles.textBody1Semibold),
+                    Text(lang.detail, style: Styles.textBody1Semibold),
                     SizedBox(height: 20),
                     Text(
                       product.description ?? "",

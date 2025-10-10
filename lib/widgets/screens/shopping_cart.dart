@@ -1,21 +1,21 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:mini_shop/l10n/app_localizations.dart';
 import 'package:mini_shop/resources/models/cart_item.dart';
-import 'package:mini_shop/resources/models/product.dart';
 import 'package:mini_shop/resources/view_models/shopping_cart_provider.dart';
 import 'package:mini_shop/widgets/common/styles.dart';
 import 'package:provider/provider.dart';
 
 class ShoppingCartScreen extends StatelessWidget {
   const ShoppingCartScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
+    final lang = AppLocalizations.of(context);
     return Consumer<ShoppingCartProvider>(
       builder: (context, cart, child) {
         return Scaffold(
           appBar: AppBar(
-            title: Text("Shopping cart"),
+            title: Text(lang!.shoppingCart),
             backgroundColor: Styles.colorLightBlue,
             foregroundColor: Colors.white,
           ),
@@ -31,7 +31,7 @@ class ShoppingCartScreen extends StatelessWidget {
                             return _ItemRow(cartItem: cart.items[index]);
                           },
                         )
-                      : Text("The shopping cart is empty"),
+                      : Text(lang.shoppingCartEmpty),
                 ),
                 const SizedBox(height: 10),
                 cart.count > 0 ? _SubTotal() : Text(""),
@@ -155,7 +155,7 @@ class _ItemRow extends StatelessWidget {
             children: [
               IconButton(
                 onPressed: () {
-                  cart.decreaseQuantity(cartItem.product);
+                  cart.decreaseQuantity(context, cartItem.product);
                 },
                 icon: Icon(Icons.remove),
                 style: ButtonStyle(

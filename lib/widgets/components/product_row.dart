@@ -22,7 +22,7 @@ class ProductRow extends StatelessWidget {
         child: Icon(Icons.delete, color: Colors.white),
       ),
       onDismissed: (_) {
-        provider.toggleFavorite(product.id);
+        provider.toggleFavorite(context, product.id);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text("Removed product from favorites")),
         );

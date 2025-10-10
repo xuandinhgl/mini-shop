@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:mini_shop/l10n/app_localizations.dart';
 
 class FavoriteProvider extends ChangeNotifier {
   final Set<int> _productIds = {};
 
   get favorites => _productIds;
 
-  void toggleFavorite(int productId) {
+  void toggleFavorite(BuildContext context, int productId) {
     if (_productIds.contains(productId)) {
       _productIds.remove(productId);
       Fluttertoast.showToast(
-        msg: "Product removed from favorite",
+        msg: AppLocalizations.of(context)!.favoriteProductRemoved,
         toastLength: Toast.LENGTH_SHORT,
       );
     } else {
       _productIds.add(productId);
       Fluttertoast.showToast(
-        msg: "Product added to favorite",
+        msg: AppLocalizations.of(context)!.favoriteProductAdded,
         toastLength: Toast.LENGTH_SHORT,
       );
     }

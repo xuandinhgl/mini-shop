@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mini_shop/l10n/app_localizations.dart';
 import 'package:mini_shop/resources/view_models/product_provider.dart';
 import 'package:mini_shop/widgets/common/styles.dart';
 import 'package:mini_shop/widgets/components/product_card.dart';
@@ -29,12 +30,14 @@ class ProductScreen extends StatelessWidget {
       return const Center(child: CircularProgressIndicator());
     }
 
+    final lang = AppLocalizations.of(context);
+
     return Container(
       key: _key,
       padding: EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 20),
       child: Column(
         children: [
-          const Text("Recommended", style: Styles.textH1Medium),
+          Text(lang!.productRecommended, style: Styles.textH1Medium),
           const SizedBox(height: 20),
           Expanded(
             child: GridView.builder(

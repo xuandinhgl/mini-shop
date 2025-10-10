@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mini_shop/l10n/app_localizations.dart';
 import 'package:mini_shop/resources/view_models/favorite_provider.dart';
 import 'package:mini_shop/resources/view_models/product_provider.dart';
 import 'package:mini_shop/widgets/common/styles.dart';
@@ -15,13 +16,15 @@ class FavoriteScreen extends StatelessWidget {
     final favoriteProducts = productProvider.getFavoriteProducts(
       favoriteProvider.favorites,
     );
+
+    final lang = AppLocalizations.of(context);
     return Padding(
       padding: EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 20),
       child: favoriteProducts.isNotEmpty ? Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Favorite products",
+            lang!.favoriteProducts,
             style: TextStyle(
               fontWeight: FontWeight.w600,
               fontSize: 26,
@@ -39,7 +42,7 @@ class FavoriteScreen extends StatelessWidget {
             ),
           ),
         ],
-      ) : Text("No favorite products", style: Styles.textH3Semibold,),
+      ) : Text(lang!.noFavoriteProducts, style: Styles.textH3Semibold,),
     );
   }
 }

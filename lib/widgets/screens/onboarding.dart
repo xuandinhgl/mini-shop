@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:mini_shop/widgets/common/routers.dart';
 import 'package:mini_shop/widgets/screens/home.dart';
 
 import '../common/styles.dart';

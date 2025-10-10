@@ -1,0 +1,14 @@
+{
+  "appName": "Mini Shop",
+  "productRecommended": "Gợi ý ",
+  "favoriteProducts": "Sản phẩm yêu thích",
+  "noFavoriteProducts": "Chưa có sản phẩm yêu thích",
+  "shoppingCart": "Giỏ hàng",
+  "shoppingCartEmpty": "Giỏ hàng đang trống",
+  "favoriteProductRemoved": "Đã xoá sản phẩm khỏi mục yêu thích",
+  "favoriteProductAdded": "Đã thêm sản phẩm vào mục yêu thích",
+  "productAddedToCart": "Đã thêm sản phẩm vào giỏ hàng",
+  "productRemovedFromCart": "Đã xoá sản phẩm vào giỏ hàng",
+  "addToCart": "Thêm vào giỏ hàng",
+  "detail": "Chi tiết"
+}
