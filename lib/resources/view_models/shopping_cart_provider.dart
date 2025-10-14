@@ -3,6 +3,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mini_shop/l10n/app_localizations.dart';
 import 'package:mini_shop/resources/models/cart_item.dart';
 import 'package:mini_shop/resources/models/product.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+final shoppingCartProvider = ChangeNotifierProvider<ShoppingCartProvider>((ref) => ShoppingCartProvider());
 
 class ShoppingCartProvider extends ChangeNotifier {
   final List<CartItem> _items = [];

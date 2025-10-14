@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mini_shop/l10n/app_localizations.dart';
 import 'package:mini_shop/resources/models/product.dart';
 import 'package:mini_shop/resources/view_models/favorite_provider.dart';
@@ -8,14 +9,15 @@ import 'package:mini_shop/widgets/common/styles.dart';
 import 'package:mini_shop/widgets/components/header_cart.dart';
 import 'package:provider/provider.dart';
 
-class ProductDetailScreen extends StatelessWidget {
+class ProductDetailScreen extends ConsumerWidget {
   const ProductDetailScreen({super.key, required this.product});
   final Product product;
 
   @override
-  Widget build(BuildContext context) {
-    final cart = Provider.of<ShoppingCartProvider>(context, listen: false);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final cart = ref.read(shoppingCartProvider);
     final lang = AppLocalizations.of(context);
+    final favorite = ref.watch(favoriteProvider);
     return Scaffold(
       appBar: AppBar(
         title: Text("Product detail"),
@@ -88,26 +90,14 @@ class ProductDetailScreen extends StatelessWidget {
                           ),
                         ),
                         SizedBox(width: 10),
-                        Consumer<FavoriteProvider>(
-                          builder:
-                              (
-                                BuildContext context,
-                                FavoriteProvider favorite,
-                                Widget? child,
-                              ) {
-                                return IconButton(
-                                  onPressed: () {
-                                    favorite.toggleFavorite(
-                                      context,
-                                      product.id,
-                                    );
-                                  },
-                                  icon: Icon(Icons.favorite),
-                                  color: favorite.isFavorited(product.id)
-                                      ? Styles.colorDarkTYellow
-                                      : Colors.black,
-                                );
-                              },
+                        IconButton(
+                          onPressed: () {
+                            favorite.toggleFavorite(context, product.id);
+                          },
+                          icon: Icon(Icons.favorite),
+                          color: favorite.isFavorited(product.id)
+                              ? Styles.colorDarkTYellow
+                              : Colors.black,
                         ),
                       ],
                     ),

@@ -1,34 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:mini_shop/resources/view_models/category_provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mini_shop/widgets/components/category_card.dart';
-import 'package:provider/provider.dart';
+import 'package:mini_shop/resources/view_models/category_provider.dart';
 
-class CategoriesScreen extends StatelessWidget {
-  CategoriesScreen({super.key}) {
-    WidgetsBinding.instance.addPersistentFrameCallback((_) {
-      final context = _key.currentContext;
-      if (context == null) {
-        return;
-      }
-      final categoryProvider = Provider.of<CategoryProvider>(context, listen: false);
-      if (!categoryProvider.isLoading && categoryProvider.categories.isEmpty) {
-        categoryProvider.getCategories();
-      }
-    });
-  }
-
-  final _key = GlobalKey();
+class CategoriesScreen extends ConsumerWidget {
+  const CategoriesScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final categoryProvider = Provider.of<CategoryProvider>(context);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final category = ref.watch(categoryProvider);
 
-    if (categoryProvider.isLoading) {
+    if (!category.isLoading && category.categories.isEmpty) {
+      category.getCategories();
+    }
+
+    if (category.isLoading) {
       return const Center(child: CircularProgressIndicator());
     }
 
     return Column(
-      key: _key,
       children: [
         Expanded(
           child: Padding(
@@ -38,7 +28,7 @@ class CategoriesScreen extends StatelessWidget {
                 const SizedBox(height: 20),
                 Expanded(
                   child: GridView.builder(
-                    itemCount: categoryProvider.categories.length,
+                    itemCount: category.categories.length,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       mainAxisSpacing: 10,
@@ -47,7 +37,7 @@ class CategoriesScreen extends StatelessWidget {
                     ),
                     itemBuilder: (context, index) {
                       return CategoryCard(
-                        category: categoryProvider.categories[index],
+                        category: category.categories[index],
                       );
                     },
                   ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mini_shop/l10n/app_localizations.dart';
 import 'package:mini_shop/resources/view_models/favorite_provider.dart';
 import 'package:mini_shop/resources/view_models/product_provider.dart';
@@ -6,15 +7,15 @@ import 'package:mini_shop/widgets/common/styles.dart';
 import 'package:mini_shop/widgets/components/product_row.dart';
 import 'package:provider/provider.dart';
 
-class FavoriteScreen extends StatelessWidget {
+class FavoriteScreen extends ConsumerWidget {
   const FavoriteScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final productProvider = Provider.of<ProductProvider>(context);
-    final favoriteProvider = Provider.of<FavoriteProvider>(context);
-    final favoriteProducts = productProvider.getFavoriteProducts(
-      favoriteProvider.favorites,
+  Widget build(BuildContext context, WidgetRef ref) {
+    final product = ref.watch(productProvider);
+    final favorite = ref.watch(favoriteProvider);
+    final favoriteProducts = product.getFavoriteProducts(
+      favorite.favorites,
     );
 
     final lang = AppLocalizations.of(context);

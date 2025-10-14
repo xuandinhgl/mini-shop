@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:mini_shop/widgets/common/styles.dart';
 import 'package:mini_shop/widgets/screens/home.dart';
 
-import '../common/styles.dart';
 
 class Onboarding extends StatelessWidget {
   const Onboarding({super.key});

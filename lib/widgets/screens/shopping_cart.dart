@@ -1,53 +1,51 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mini_shop/l10n/app_localizations.dart';
 import 'package:mini_shop/resources/models/cart_item.dart';
 import 'package:mini_shop/resources/view_models/shopping_cart_provider.dart';
 import 'package:mini_shop/widgets/common/styles.dart';
-import 'package:provider/provider.dart';
 
-class ShoppingCartScreen extends StatelessWidget {
+class ShoppingCartScreen extends ConsumerWidget {
   const ShoppingCartScreen({super.key});
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final lang = AppLocalizations.of(context);
-    return Consumer<ShoppingCartProvider>(
-      builder: (context, cart, child) {
-        return Scaffold(
-          appBar: AppBar(
-            title: Text(lang!.shoppingCart),
-            backgroundColor: Styles.colorLightBlue,
-            foregroundColor: Colors.white,
-          ),
-          body: Padding(
-            padding: EdgeInsets.all(10),
-            child: Column(
-              children: [
-                Expanded(
-                  child: cart.count > 0
-                      ? ListView.builder(
-                          itemCount: cart.count,
-                          itemBuilder: (context, index) {
-                            return _ItemRow(cartItem: cart.items[index]);
-                          },
-                        )
-                      : Text(lang.shoppingCartEmpty),
-                ),
-                const SizedBox(height: 10),
-                cart.count > 0 ? _SubTotal() : Text(""),
-              ],
+    final cart = ref.watch(shoppingCartProvider);
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(lang!.shoppingCart),
+        backgroundColor: Styles.colorLightBlue,
+        foregroundColor: Colors.white,
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(10),
+        child: Column(
+          children: [
+            Expanded(
+              child: cart.count > 0
+                  ? ListView.builder(
+                itemCount: cart.count,
+                itemBuilder: (context, index) {
+                  return _ItemRow(cartItem: cart.items[index]);
+                },
+              )
+                  : Text(lang.shoppingCartEmpty),
             ),
-          ),
-        );
-      },
+            const SizedBox(height: 10),
+            cart.count > 0 ? _SubTotal() : Text(""),
+          ],
+        ),
+      ),
     );
   }
 }
 
-class _SubTotal extends StatelessWidget {
+class _SubTotal extends ConsumerWidget {
   @override
-  Widget build(BuildContext context) {
-    final cart = Provider.of<ShoppingCartProvider>(context, listen: false);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final cart = ref.watch(shoppingCartProvider);
     return Container(
       padding: EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -107,13 +105,13 @@ class _SubTotal extends StatelessWidget {
   }
 }
 
-class _ItemRow extends StatelessWidget {
+class _ItemRow extends ConsumerWidget {
   final CartItem cartItem;
   const _ItemRow({required this.cartItem});
 
   @override
-  Widget build(BuildContext context) {
-    final cart = Provider.of<ShoppingCartProvider>(context, listen: false);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final cart = ref.watch(shoppingCartProvider);
     return Container(
       padding: EdgeInsets.all(10),
       decoration: BoxDecoration(

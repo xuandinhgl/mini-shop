@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mini_shop/l10n/app_localizations.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+final favoriteProvider = ChangeNotifierProvider<FavoriteProvider>((ref) => FavoriteProvider());
 
 class FavoriteProvider extends ChangeNotifier {
   final Set<int> _productIds = {};

@@ -1,40 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mini_shop/resources/models/category.dart';
 import 'package:mini_shop/resources/view_models/product_provider.dart';
 import 'package:mini_shop/widgets/common/styles.dart';
 import 'package:mini_shop/widgets/components/header_cart.dart';
 import 'package:mini_shop/widgets/components/product_card.dart';
-import 'package:provider/provider.dart';
 
-class CategoryDetailScreen extends StatelessWidget {
-  final _key = GlobalKey();
-
-  CategoryDetailScreen({super.key, required this.category}){
-     WidgetsBinding.instance.addPostFrameCallback((_){
-       final context = _key.currentContext;
-       if (context == null) {
-         return;
-       }
-       final productProvider = Provider.of<ProductProvider>(context, listen: false);
-       if (!productProvider.isLoading) {
-         productProvider.getProductsByCategory(category.id);
-       }
-     });
-   }
+class CategoryDetailScreen extends ConsumerWidget {
+  const CategoryDetailScreen({super.key, required this.category});
 
   final Category category;
 
 
   @override
-  Widget build(BuildContext context) {
-    final productProvider = Provider.of<ProductProvider>(context);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final product = ref.watch(productProvider);
 
-    if (productProvider.isLoading) {
+    if(!product.isLoading && product.productsByCategory.isEmpty) {
+      product.getProductsByCategory(category.id);
+    }
+
+    if (product.isLoading) {
       return const Center(child: CircularProgressIndicator());
     }
 
     return Scaffold(
-      key: _key,
       appBar: AppBar(
         title: Text(category.name),
         backgroundColor: Styles.colorLightBlue,
@@ -47,7 +37,7 @@ class CategoryDetailScreen extends StatelessWidget {
           children: [
             Expanded(
               child: GridView.builder(
-                itemCount: productProvider.productsByCategory.length,
+                itemCount: product.productsByCategory.length,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   mainAxisSpacing: 10,
@@ -56,7 +46,7 @@ class CategoryDetailScreen extends StatelessWidget {
                 ),
                 itemBuilder: (context, index) {
                   return ProductCard(
-                    product: productProvider.productsByCategory[index],
+                    product: product.productsByCategory[index],
                   );
                 },
               ),
