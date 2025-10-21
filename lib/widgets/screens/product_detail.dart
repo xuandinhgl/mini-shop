@@ -3,11 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mini_shop/l10n/app_localizations.dart';
 import 'package:mini_shop/resources/models/product.dart';
-import 'package:mini_shop/resources/view_models/favorite_provider.dart';
+import 'package:mini_shop/resources/view_models/favorite_notifier.dart';
+import 'package:mini_shop/resources/view_models/product_notifier.dart';
 import 'package:mini_shop/resources/view_models/shopping_cart_provider.dart';
 import 'package:mini_shop/widgets/common/styles.dart';
 import 'package:mini_shop/widgets/components/header_cart.dart';
-import 'package:provider/provider.dart';
+
+
+final productInitProvider = FutureProvider.family.autoDispose<Product?, int>((ref, productId) async {
+  return ref.read(productNotifierProvider.notifier).getProductById(productId);
+});
 
 class ProductDetailScreen extends ConsumerWidget {
   const ProductDetailScreen({super.key, required this.product});
@@ -17,7 +22,8 @@ class ProductDetailScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final cart = ref.read(shoppingCartProvider);
     final lang = AppLocalizations.of(context);
-    final favorite = ref.watch(favoriteProvider);
+    final favorite = ref.watch(favoriteNotifierProvider);
+    final favoriteNotifier = ref.watch(favoriteNotifierProvider.notifier);
     return Scaffold(
       appBar: AppBar(
         title: Text("Product detail"),
@@ -76,7 +82,6 @@ class ProductDetailScreen extends ConsumerWidget {
                               cart.addToCart(context, product);
                             },
                             style: ElevatedButton.styleFrom(
-                              // minimumSize: const Size(double.infinity, 48),
                               backgroundColor: Styles.colorLightBlue,
                               foregroundColor: Colors.white,
                               padding: EdgeInsets.only(
@@ -92,10 +97,10 @@ class ProductDetailScreen extends ConsumerWidget {
                         SizedBox(width: 10),
                         IconButton(
                           onPressed: () {
-                            favorite.toggleFavorite(context, product.id);
+                            favoriteNotifier.toggleFavorite(context, product.id);
                           },
                           icon: Icon(Icons.favorite),
-                          color: favorite.isFavorited(product.id)
+                          color: favoriteNotifier.isFavorited(product.id)
                               ? Styles.colorDarkTYellow
                               : Colors.black,
                         ),

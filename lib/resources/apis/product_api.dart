@@ -6,21 +6,31 @@ class ProductApi extends BaseApi {
     super.url = 'products';
 
     final response = await super.get();
-    if (response != null) {
-      return response.map((item) => Product.fromJson(item)).toList();
-    } else {
-      return null;
+    if (response != null && response.isList && response.list != null) {
+      return response.list!.map((item) => Product.fromJson(item)).toList();
     }
+
+    return null;
   }
 
   Future<List<Product>?> getProductsByCategory(String categoryId) async {
     super.url = 'products';
     super.parameters.putIfAbsent("categoryId", () => categoryId);
     final response = await super.get();
-    if (response != null) {
-      return response.map((item) => Product.fromJson(item)).toList();
-    } else {
-      return null;
+    if (response != null && response.isList && response.list != null) {
+      return response.list!.map((item) => Product.fromJson(item)).toList();
     }
+
+    return null;
+  }
+
+  Future<Product?> getProduct(String productId) async {
+    super.url = 'products/$productId';
+    final response = await super.get();
+    if (response != null && response.isMap && response.map != null) {
+      return Product.fromJson(response.map!);
+    }
+
+    return null;
   }
 }

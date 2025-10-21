@@ -1,21 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mini_shop/l10n/app_localizations.dart';
-import 'package:mini_shop/resources/view_models/product_provider.dart';
+import 'package:mini_shop/resources/view_models/product_notifier.dart';
 import 'package:mini_shop/widgets/common/styles.dart';
 import 'package:mini_shop/widgets/components/product_card.dart';
 
-class ProductScreen extends ConsumerWidget {
-  const ProductScreen({super.key});
-
+class ProductsScreen extends ConsumerWidget {
+  const ProductsScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final product = ref.watch(productProvider);
 
-    if(!product.isLoading && product.allProducts.isEmpty) {
-      product.getProducts();
-    }
+    final product = ref.watch(productNotifierProvider);
 
     if (product.isLoading) {
       return const Center(child: CircularProgressIndicator());

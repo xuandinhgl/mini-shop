@@ -5,8 +5,8 @@ class CategoryApi extends BaseApi {
   Future<List<Category>?> getCategories() async {
     super.url = 'categories';
     final response = await super.get();
-    if (response != null) {
-      return response.map((item) => Category.fromJson(item)).toList();
+    if (response!= null && response.isList && response.list != null) {
+      return response.list!.map((item) => Category.fromJson(item)).toList();
     } else {
       return null;
     }

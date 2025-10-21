@@ -7,7 +7,7 @@ import 'package:mini_shop/widgets/common/styles.dart';
 import 'package:mini_shop/widgets/components/header_cart.dart';
 import 'package:mini_shop/widgets/screens/categories.dart';
 import 'package:mini_shop/widgets/screens/favorite.dart';
-import 'package:mini_shop/widgets/screens/product.dart';
+import 'package:mini_shop/widgets/screens/products.dart';
 import 'package:mini_shop/widgets/screens/setting.dart' show SettingScreen;
 import 'package:provider/provider.dart';
 
@@ -15,7 +15,7 @@ class HomeScreen extends ConsumerWidget {
   HomeScreen({super.key});
 
   final pages = [
-    ProductScreen(),
+    ProductsScreen(),
     CategoriesScreen(),
     FavoriteScreen(),
     SettingScreen(),

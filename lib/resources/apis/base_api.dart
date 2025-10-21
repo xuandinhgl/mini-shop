@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:mini_shop/resources/apis/api_response.dart';
 
 class BaseApi {
   @protected
@@ -40,7 +41,7 @@ class BaseApi {
     }
   }
 
-  Future<List<dynamic>?> get() async {
+  Future<ApiResponse?> get() async {
     try {
       debugPrint(url);
       final response =
@@ -52,7 +53,7 @@ class BaseApi {
       if (response.statusCode == 200) {
         final decodedResponse =
         await json.decode(response.body);
-        return decodedResponse;
+        return ApiResponse.from(decodedResponse);
       } else {
         return null;
       }
