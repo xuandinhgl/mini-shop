@@ -26,155 +26,160 @@ class ShoppingCartScreen extends ConsumerWidget {
             Expanded(
               child: cart.count > 0
                   ? ListView.builder(
-                itemCount: cart.count,
-                itemBuilder: (context, index) {
-                  return _ItemRow(cartItem: cart.items[index]);
-                },
-              )
+                      itemCount: cart.count,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          padding: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide(
+                                color: Color(0xFFEBEBFB),
+                                width: 0.5,
+                              ),
+                            ),
+                          ),
+                          child: Row(
+                            children: [
+                              CachedNetworkImage(
+                                imageUrl: cart.items[index].product.thumbnail,
+                                width: 40,
+                                height: 40,
+                                fit: BoxFit.cover,
+                                placeholder: (context, url) => const Center(
+                                  child: CircularProgressIndicator(),
+                                ),
+                                errorWidget: (context, url, error) =>
+                                    const Icon(Icons.broken_image, size: 50),
+                              ),
+                              const SizedBox(width: 10),
+                              SizedBox(
+                                width: 150,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      cart.items[index].product.title,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    Text("\$${cart.items[index].totalPrice}"),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(width: 10),
+                              const Spacer(),
+                              Row(
+                                children: [
+                                  IconButton(
+                                    onPressed: () {
+                                      cart.decreaseQuantity(
+                                        context,
+                                        cart.items[index].product,
+                                      );
+                                    },
+                                    icon: Icon(Icons.remove),
+                                    style: ButtonStyle(
+                                      backgroundColor: WidgetStateProperty.all(
+                                        Styles.colorBlack10,
+                                      ),
+                                      foregroundColor: WidgetStateProperty.all(
+                                        Styles.colorBlack90,
+                                      ),
+                                    ),
+                                  ),
+                                  Text(cart.items[index].quantity.toString()),
+                                  IconButton(
+                                    onPressed: () {
+                                      cart.increaseQuantity(
+                                        cart.items[index].product,
+                                      );
+                                    },
+                                    icon: Icon(Icons.add),
+                                    style: ButtonStyle(
+                                      backgroundColor: WidgetStateProperty.all(
+                                        Styles.colorBlack10,
+                                      ),
+                                      foregroundColor: WidgetStateProperty.all(
+                                        Styles.colorBlack90,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    )
                   : Text(lang.shoppingCartEmpty),
             ),
             const SizedBox(height: 10),
-            cart.count > 0 ? _SubTotal() : Text(""),
+            cart.count > 0
+                ? Container(
+                    padding: EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      color: Styles.colorBlack10,
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("Subtotal"),
+                            Text(
+                              "\$${cart.totalAmound}",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 20),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("Delivery"),
+                            Text(
+                              "\$10",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 20),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("Total"),
+                            Text(
+                              "\$${cart.totalAmound + 10}",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 30),
+                        ElevatedButton(
+                          onPressed: () {},
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Styles.colorLightBlue,
+                            foregroundColor: Colors.white,
+                            padding: EdgeInsets.only(
+                              top: 10,
+                              bottom: 10,
+                              left: 20,
+                              right: 10,
+                            ),
+                            minimumSize: const Size(double.infinity, 48),
+                          ),
+                          child: Text("Proceed To checkout"),
+                        ),
+                      ],
+                    ),
+                  )
+                : Text(""),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class _SubTotal extends ConsumerWidget {
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final cart = ref.watch(shoppingCartProvider);
-    return Container(
-      padding: EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: Styles.colorBlack10,
-        borderRadius: BorderRadius.circular(30),
-      ),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text("Subtotal"),
-              Text(
-                "\$${cart.totalAmound}",
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
-          const SizedBox(height: 20),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text("Delivery"),
-              Text("\$10", style: TextStyle(fontWeight: FontWeight.bold)),
-            ],
-          ),
-          const SizedBox(height: 20),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text("Total"),
-              Text(
-                "\$${cart.totalAmound + 10}",
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
-          const SizedBox(height: 30),
-          ElevatedButton(
-            onPressed: () {},
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Styles.colorLightBlue,
-              foregroundColor: Colors.white,
-              padding: EdgeInsets.only(
-                top: 10,
-                bottom: 10,
-                left: 20,
-                right: 10,
-              ),
-              minimumSize: const Size(double.infinity, 48),
-            ),
-            child: Text("Proceed To checkout"),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _ItemRow extends ConsumerWidget {
-  final CartItem cartItem;
-  const _ItemRow({required this.cartItem});
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final cart = ref.watch(shoppingCartProvider);
-    return Container(
-      padding: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(color: Color(0xFFEBEBFB), width: 0.5),
-        ),
-      ),
-      child: Row(
-        children: [
-          CachedNetworkImage(
-            imageUrl: cartItem.product.thumbnail,
-            width: 40,
-            height: 40,
-            fit: BoxFit.cover,
-            placeholder: (context, url) =>
-                const Center(child: CircularProgressIndicator()),
-            errorWidget: (context, url, error) =>
-                const Icon(Icons.broken_image, size: 50),
-          ),
-          const SizedBox(width: 10),
-          SizedBox(
-            width: 150,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  cartItem.product.title,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                Text("\$${cartItem.totalPrice}"),
-              ],
-            ),
-          ),
-          const SizedBox(width: 10),
-          const Spacer(),
-          Row(
-            children: [
-              IconButton(
-                onPressed: () {
-                  cart.decreaseQuantity(context, cartItem.product);
-                },
-                icon: Icon(Icons.remove),
-                style: ButtonStyle(
-                  backgroundColor: WidgetStateProperty.all(Styles.colorBlack10),
-                  foregroundColor: WidgetStateProperty.all(Styles.colorBlack90),
-                ),
-              ),
-              Text(cartItem.quantity.toString()),
-              IconButton(
-                onPressed: () {
-                  cart.increaseQuantity(cartItem.product);
-                },
-                icon: Icon(Icons.add),
-                style: ButtonStyle(
-                  backgroundColor: WidgetStateProperty.all(Styles.colorBlack10),
-                  foregroundColor: WidgetStateProperty.all(Styles.colorBlack90),
-                ),
-              ),
-            ],
-          ),
-        ],
       ),
     );
   }
