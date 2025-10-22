@@ -9,6 +9,7 @@ import 'package:mini_shop/widgets/screens/shopping_cart.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
   return GoRouter(
+    debugLogDiagnostics: true,
     initialLocation: "/",
     routes: [
       GoRoute(path: "/", builder: (context, state) => Onboarding()),

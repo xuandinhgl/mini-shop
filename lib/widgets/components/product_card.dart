@@ -5,7 +5,6 @@ import 'package:go_router/go_router.dart';
 import 'package:mini_shop/resources/models/product.dart';
 import 'package:mini_shop/resources/view_models/shopping_cart_notifier.dart';
 import 'package:mini_shop/widgets/common/styles.dart';
-import 'package:mini_shop/widgets/screens/product_detail.dart';
 
 class ProductCard extends ConsumerWidget {
   const ProductCard({super.key, required this.product});

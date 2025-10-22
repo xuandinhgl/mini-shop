@@ -42,6 +42,7 @@ class ProductDetailScreen extends ConsumerWidget {
             child: Stack(
               children: [
                 SizedBox(
+                  width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height / 2,
                   child: CachedNetworkImage(
                     imageUrl: product.thumbnail,

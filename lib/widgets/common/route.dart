@@ -1,6 +1,6 @@
 class RoutePath {
   static const String home = "/home";
-  static final String shoppingCart = "/shopping_cart";
-  static final String categoryDetail = "/category/:id";
-  static final String productDetail = "/product/:id";
+  static const String shoppingCart = "/shopping_cart";
+  static const String categoryDetail = "/category/:id";
+  static const String productDetail = "/product/:id";
 }
