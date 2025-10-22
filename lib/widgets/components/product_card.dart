@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mini_shop/resources/models/product.dart';
 import 'package:mini_shop/resources/view_models/shopping_cart_notifier.dart';
 import 'package:mini_shop/widgets/common/styles.dart';
@@ -34,12 +35,7 @@ class ProductCard extends ConsumerWidget {
                   const Icon(Icons.broken_image, size: 50),
             ),
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => ProductDetailScreen(product: product),
-                ),
-              );
+              context.push('/product/${product.id}');
             },
           ),
           const SizedBox(height: 5),
@@ -50,12 +46,7 @@ class ProductCard extends ConsumerWidget {
               maxLines: 1,
             ),
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => ProductDetailScreen(product: product),
-                ),
-              );
+              context.push('/product/${product.id}');
             },
           ),
           Text(

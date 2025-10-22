@@ -8,15 +8,19 @@ final categoryNotifierProvider =
     NotifierProvider<CategoryNotifier, CategoryState>(CategoryNotifier.new);
 
 class CategoryNotifier extends Notifier<CategoryState> {
+  @override
+  CategoryState build() {
+    Future.microtask(() => _getCategories());
+    return CategoryState();
+  }
+
   Future<void> _getCategories() async {
     state = state.copyWith(isLoading: true);
     final res = await CategoryApi().getCategories();
     state = state.copyWith(isLoading: false, categories: res ?? []);
   }
 
-  @override
-  CategoryState build() {
-    Future.microtask(() => _getCategories());
-    return CategoryState();
+  Future<Category?> getCategory(String id) async {
+    return await CategoryApi().getCategory(id);
   }
 }

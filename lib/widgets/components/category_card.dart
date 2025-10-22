@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mini_shop/resources/models/category.dart';
 import 'package:mini_shop/widgets/common/styles.dart';
-import 'package:mini_shop/widgets/screens/category_detail.dart';
 
 class CategoryCard extends StatelessWidget {
   const CategoryCard({super.key, required this.category});
@@ -12,12 +12,7 @@ class CategoryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (_) => CategoryDetailScreen(category: category),
-          ),
-        );
+        context.push('/category/${category.id}');
       },
       child: Container(
         decoration: BoxDecoration(

@@ -8,8 +8,6 @@ final favoriteNotifierProvider = NotifierProvider<FavoriteNotifier, Set<int>>(
 );
 
 class FavoriteNotifier extends Notifier<Set<int>> {
-  get favorites => state;
-
   void toggleFavorite(BuildContext context, int productId) {
     final updated = {...state};
     if (updated.contains(productId)) {
@@ -29,9 +27,7 @@ class FavoriteNotifier extends Notifier<Set<int>> {
     state = updated;
   }
 
-  bool isFavorited(int productId) {
-    return state.contains(productId);
-  }
+  bool isFavorited(int productId) => state.contains(productId);
 
   @override
   Set<int> build() => <int>{};

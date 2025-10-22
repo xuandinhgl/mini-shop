@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:mini_shop/widgets/common/route.dart';
 import 'package:mini_shop/widgets/common/styles.dart';
 import 'package:mini_shop/widgets/screens/home.dart';
-
 
 class Onboarding extends StatelessWidget {
   const Onboarding({super.key});
@@ -40,11 +41,7 @@ class Onboarding extends StatelessWidget {
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(builder: (context) => HomeScreen()),
-                        (Route<dynamic> route) => false,
-                      );
+                      context.go(RoutePath.home);
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Styles.colorLightBlue,

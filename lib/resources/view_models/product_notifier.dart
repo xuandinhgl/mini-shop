@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:mini_shop/resources/apis/product_api.dart';
 import 'package:mini_shop/resources/models/product.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -20,13 +21,13 @@ class ProductNotifier extends Notifier<ProductState> {
     state = state.copyWith(isLoading: false, allProducts: res ?? []);
   }
 
-  Future<List<Product>> getProductsByCategory(int id) async {
-    final res = await ProductApi().getProductsByCategory(id.toString());
+  Future<List<Product>> getProductsByCategory(String id) async {
+    final res = await ProductApi().getProductsByCategory(id);
     return res ?? [];
   }
 
-  Future<Product?> getProductById(int id) async {
-    return await ProductApi().getProduct(id.toString());
+  Future<Product?> getProductById(String id) async {
+    return await ProductApi().getProduct(id);
   }
 
   List<Product> getFavoriteProducts(Set<int> ids) {

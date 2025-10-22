@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mini_shop/resources/view_models/shopping_cart_notifier.dart';
-import 'package:mini_shop/widgets/common/routers.dart';
+import 'package:mini_shop/widgets/common/route.dart';
 import 'package:mini_shop/widgets/common/styles.dart';
 
 class HeaderCart extends ConsumerWidget {
@@ -15,7 +16,7 @@ class HeaderCart extends ConsumerWidget {
       children: [
         IconButton(
           onPressed: () {
-            Navigator.of(context).pushNamed(Routers.shoppingCart);
+            context.push(RoutePath.shoppingCart);
           },
           icon: Icon(Icons.shopping_cart),
         ),

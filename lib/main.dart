@@ -3,7 +3,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mini_shop/l10n/app_localizations.dart';
 import 'package:mini_shop/resources/view_models/app_setting_provider.dart';
-import 'package:mini_shop/widgets/common/routers.dart';
+import 'package:mini_shop/router/app_router.dart';
+import 'package:mini_shop/widgets/common/route.dart';
 import 'package:mini_shop/widgets/screens/home.dart';
 import 'package:mini_shop/widgets/screens/onboarding.dart';
 import 'package:mini_shop/widgets/screens/shopping_cart.dart';
@@ -19,7 +20,9 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final settingProvider = ref.watch(appSettingNotifierProvider);
-    return MaterialApp(
+    final router = ref.watch(routerProvider);
+
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       locale: settingProvider.lang,
       localizationsDelegates: const [
@@ -30,11 +33,7 @@ class MyApp extends ConsumerWidget {
       ],
       supportedLocales: const [Locale("en"), Locale("vi")],
       title: 'MiniShop',
-      home: const Onboarding(),
-      routes: {
-        Routers.home: (_) => HomeScreen(),
-        Routers.shoppingCart: (_) => ShoppingCartScreen(),
-      },
+      routerConfig: router,
     );
   }
 }
