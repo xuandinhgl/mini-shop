@@ -9,7 +9,8 @@ class SettingScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final buttonWidth = MediaQuery.of(context).size.width / 2 - 30;
-    final setting = ref.watch(appSettingProvider);
+    final setting = ref.watch(appSettingNotifierProvider);
+    final settingNotifier = ref.watch(appSettingNotifierProvider.notifier);
     return Container(
       padding: EdgeInsets.symmetric(vertical: 30, horizontal: 10),
       child: Row(
@@ -17,7 +18,7 @@ class SettingScreen extends ConsumerWidget {
         children: [
           ElevatedButton(
             onPressed: () {
-              setting.setLang(Locale("en"));
+              settingNotifier.setLang(Locale("en"));
             },
             style: ElevatedButton.styleFrom(
               minimumSize: Size(buttonWidth, 50),
@@ -31,7 +32,7 @@ class SettingScreen extends ConsumerWidget {
           SizedBox(width: 20),
           ElevatedButton(
             onPressed: () {
-              setting.setLang(Locale("vi"));
+              settingNotifier.setLang(Locale("vi"));
             },
             style: ElevatedButton.styleFrom(
               minimumSize: Size(buttonWidth, 50),

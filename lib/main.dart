@@ -9,11 +9,7 @@ import 'package:mini_shop/widgets/screens/onboarding.dart';
 import 'package:mini_shop/widgets/screens/shopping_cart.dart';
 
 void main() {
-  runApp(
-    ProviderScope(
-      child: const MyApp(),
-    ),
-  );
+  runApp(ProviderScope(child: const MyApp()));
 }
 
 class MyApp extends ConsumerWidget {
@@ -22,7 +18,7 @@ class MyApp extends ConsumerWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final settingProvider = ref.watch(appSettingProvider);
+    final settingProvider = ref.watch(appSettingNotifierProvider);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       locale: settingProvider.lang,
@@ -30,12 +26,9 @@ class MyApp extends ConsumerWidget {
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate
+        GlobalCupertinoLocalizations.delegate,
       ],
-      supportedLocales: const [
-        Locale("en"),
-        Locale("vi"),
-      ],
+      supportedLocales: const [Locale("en"), Locale("vi")],
       title: 'MiniShop',
       home: const Onboarding(),
       routes: {

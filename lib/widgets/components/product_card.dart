@@ -1,9 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:provider/provider.dart';
 import 'package:mini_shop/resources/models/product.dart';
-import 'package:mini_shop/resources/view_models/shopping_cart_provider.dart';
+import 'package:mini_shop/resources/view_models/shopping_cart_notifier.dart';
 import 'package:mini_shop/widgets/common/styles.dart';
 import 'package:mini_shop/widgets/screens/product_detail.dart';
 
@@ -13,7 +12,7 @@ class ProductCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final cart = ref.watch(shoppingCartProvider);
+    final cartNotifier = ref.watch(shoppingCartNotifierProvider.notifier);
 
     return Container(
       decoration: BoxDecoration(
@@ -30,9 +29,9 @@ class ProductCard extends ConsumerWidget {
               height: 138,
               fit: BoxFit.cover,
               placeholder: (context, url) =>
-              const Center(child: CircularProgressIndicator()),
+                  const Center(child: CircularProgressIndicator()),
               errorWidget: (context, url, error) =>
-              const Icon(Icons.broken_image, size: 50),
+                  const Icon(Icons.broken_image, size: 50),
             ),
             onTap: () {
               Navigator.push(
@@ -83,14 +82,11 @@ class ProductCard extends ConsumerWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    "\$${product.price}",
-                    style: Styles.textBody1Semibold,
-                  ),
+                  Text("\$${product.price}", style: Styles.textBody1Semibold),
                   SizedBox(width: 5),
                   IconButton(
                     onPressed: () {
-                      cart.addToCart(context, product);
+                      cartNotifier.addToCart(context, product);
                     },
                     icon: Icon(Icons.add),
                     iconSize: 30,
@@ -98,9 +94,7 @@ class ProductCard extends ConsumerWidget {
                       backgroundColor: WidgetStateProperty.all(
                         Styles.colorLightBlue,
                       ),
-                      foregroundColor: WidgetStateProperty.all(
-                        Colors.white,
-                      ),
+                      foregroundColor: WidgetStateProperty.all(Colors.white),
                     ),
                   ),
                 ],

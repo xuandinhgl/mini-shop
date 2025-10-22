@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mini_shop/l10n/app_localizations.dart';
 import 'package:mini_shop/resources/models/cart_item.dart';
-import 'package:mini_shop/resources/view_models/shopping_cart_provider.dart';
+import 'package:mini_shop/resources/view_models/shopping_cart_notifier.dart';
 import 'package:mini_shop/widgets/common/styles.dart';
 
 class ShoppingCartScreen extends ConsumerWidget {
@@ -11,7 +11,8 @@ class ShoppingCartScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final lang = AppLocalizations.of(context);
-    final cart = ref.watch(shoppingCartProvider);
+    final cart = ref.watch(shoppingCartNotifierProvider);
+    final cartNotifier = ref.watch(shoppingCartNotifierProvider.notifier);
 
     return Scaffold(
       appBar: AppBar(
@@ -75,7 +76,7 @@ class ShoppingCartScreen extends ConsumerWidget {
                                 children: [
                                   IconButton(
                                     onPressed: () {
-                                      cart.decreaseQuantity(
+                                      cartNotifier.decreaseQuantity(
                                         context,
                                         cart.items[index].product,
                                       );
@@ -93,7 +94,7 @@ class ShoppingCartScreen extends ConsumerWidget {
                                   Text(cart.items[index].quantity.toString()),
                                   IconButton(
                                     onPressed: () {
-                                      cart.increaseQuantity(
+                                      cartNotifier.increaseQuantity(
                                         cart.items[index].product,
                                       );
                                     },
@@ -131,7 +132,7 @@ class ShoppingCartScreen extends ConsumerWidget {
                           children: [
                             Text("Subtotal"),
                             Text(
-                              "\$${cart.totalAmound}",
+                              "\$${cart.totalAmount}",
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                           ],
@@ -153,7 +154,7 @@ class ShoppingCartScreen extends ConsumerWidget {
                           children: [
                             Text("Total"),
                             Text(
-                              "\$${cart.totalAmound + 10}",
+                              "\$${cart.totalAmount + 10}",
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                           ],

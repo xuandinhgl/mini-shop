@@ -3,10 +3,11 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mini_shop/l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final favoriteNotifierProvider = NotifierProvider<FavoriteNotifier, Set<int>>(FavoriteNotifier.new);
+final favoriteNotifierProvider = NotifierProvider<FavoriteNotifier, Set<int>>(
+  FavoriteNotifier.new,
+);
 
 class FavoriteNotifier extends Notifier<Set<int>> {
-
   get favorites => state;
 
   void toggleFavorite(BuildContext context, int productId) {
