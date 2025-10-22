@@ -6,8 +6,6 @@ import 'package:mini_shop/l10n/app_localizations.dart';
 import 'package:mini_shop/resources/models/product.dart';
 import 'package:mini_shop/resources/view_models/favorite_notifier.dart';
 import 'package:mini_shop/widgets/common/styles.dart';
-import 'package:mini_shop/widgets/screens/product_detail.dart';
-import 'package:provider/provider.dart';
 
 class ProductRow extends ConsumerWidget {
   const ProductRow({super.key, required this.product});

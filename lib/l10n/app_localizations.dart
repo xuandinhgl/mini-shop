@@ -122,8 +122,8 @@ abstract class AppLocalizations {
   /// No description provided for @shoppingCart.
   ///
   /// In en, this message translates to:
-  /// **'Shopping cart'**
-  String get shoppingCart;
+  /// **'Shopping cart ({count})'**
+  String shoppingCart(Object count);
 
   /// No description provided for @shoppingCartEmpty.
   ///

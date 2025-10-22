@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'package:mini_shop/l10n/app_localizations.dart';
 import 'package:mini_shop/resources/view_models/app_setting_provider.dart';
 import 'package:mini_shop/router/app_router.dart';
 
 void main() {
-  setUrlStrategy(PathUrlStrategy());
   runApp(ProviderScope(child: const MyApp()));
 }
 

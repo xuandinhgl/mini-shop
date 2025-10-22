@@ -21,7 +21,9 @@ class AppLocalizationsVi extends AppLocalizations {
   String get noFavoriteProducts => 'Chưa có sản phẩm yêu thích';
 
   @override
-  String get shoppingCart => 'Giỏ hàng';
+  String shoppingCart(Object count) {
+    return 'Giỏ hàng ($count)';
+  }
 
   @override
   String get shoppingCartEmpty => 'Giỏ hàng đang trống';

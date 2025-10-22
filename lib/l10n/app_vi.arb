@@ -3,7 +3,7 @@
   "productRecommended": "Gợi ý ",
   "favoriteProducts": "Sản phẩm yêu thích",
   "noFavoriteProducts": "Chưa có sản phẩm yêu thích",
-  "shoppingCart": "Giỏ hàng",
+  "shoppingCart": "Giỏ hàng ({count})",
   "shoppingCartEmpty": "Giỏ hàng đang trống",
   "favoriteProductRemoved": "Đã xoá sản phẩm khỏi mục yêu thích",
   "favoriteProductAdded": "Đã thêm sản phẩm vào mục yêu thích",

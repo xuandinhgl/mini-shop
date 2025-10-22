@@ -27,7 +27,7 @@ class SettingScreen extends ConsumerWidget {
                   : Colors.grey,
               foregroundColor: Colors.white,
             ),
-            child: const Text("English"),
+            child: const Text("🇺🇸 English"),
           ),
           SizedBox(width: 20),
           ElevatedButton(
@@ -41,7 +41,7 @@ class SettingScreen extends ConsumerWidget {
                   : Colors.grey,
               foregroundColor: Colors.white,
             ),
-            child: const Text("Vietnamese"),
+            child: const Text("🇻🇳 Vietnamese"),
           ),
         ],
       ),

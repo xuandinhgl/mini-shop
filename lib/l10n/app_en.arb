@@ -3,7 +3,7 @@
   "productRecommended": "Recommended",
   "favoriteProducts": "Favorite products",
   "noFavoriteProducts": "No favorite products",
-  "shoppingCart": "Shopping cart",
+  "shoppingCart": "Shopping cart ({count})",
   "shoppingCartEmpty": "The shopping cart is empty",
   "favoriteProductRemoved": "Product removed from favorite",
   "favoriteProductAdded": "Product added to favorite",

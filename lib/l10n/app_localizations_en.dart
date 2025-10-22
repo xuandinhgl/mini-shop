@@ -21,7 +21,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get noFavoriteProducts => 'No favorite products';
 
   @override
-  String get shoppingCart => 'Shopping cart';
+  String shoppingCart(Object count) {
+    return 'Shopping cart ($count)';
+  }
 
   @override
   String get shoppingCartEmpty => 'The shopping cart is empty';

@@ -45,8 +45,6 @@ dependencies:
   intl: ^0.20.2
   flutter_riverpod: ^2.5.1
   go_router: ^14.0.0
-  flutter_web_plugins:
-    sdk: flutter
 
 dev_dependencies:
   flutter_test:
@@ -100,7 +98,4 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
-localization:
-  arb-dir: lib/l10n
-  template-arb-file: app_en.arb
-  output-localization-file: app_localizations.dart
+

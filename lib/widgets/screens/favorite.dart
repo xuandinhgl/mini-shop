@@ -5,7 +5,6 @@ import 'package:mini_shop/resources/view_models/favorite_notifier.dart';
 import 'package:mini_shop/resources/view_models/product_notifier.dart';
 import 'package:mini_shop/widgets/common/styles.dart';
 import 'package:mini_shop/widgets/components/product_row.dart';
-import 'package:provider/provider.dart';
 
 class FavoriteScreen extends ConsumerWidget {
   const FavoriteScreen({super.key});
